@@ -171,6 +171,12 @@ $ floyd init fast-neural-style
 
 ### Try pre-trained model
 
+I've already uploaded for you the pretrained model provided by the Pytorch authors of fast-neural-style. Put the image you want to style in the images/content-images/ path and run:
+
+```bash
+floyd run --gpu --env pytorch-0.2 --data redeipirati/datasets/fast-neural-style-models/1:model "python neural_style/neural_style.py eval --content-image images/content-images/<YOUR_IMAGE>  --model /model/<CHOOSE_YOUR_MODEL>  --output-image /output/<OUTPUT_FILE_NAME> --cuda 1"
+```
+
 
 ### Serve model through REST API
 
