@@ -27,6 +27,8 @@ subcommands:
     eval        parser for evaluation/stylizing arguments
 ```
 
+#### Train model
+
 `neural_style.py train` options:
 
 ```bash
@@ -77,7 +79,7 @@ optional arguments:
 
 ```
 
-#### Train model
+Train template:
 ```bash
 python neural_style/neural_style.py train --dataset </path/to/train-dataset> --style-image </path/to/style/image> --save-model-dir </path/to/save-model/folder> --epochs 2 --cuda 1
 ```
@@ -90,6 +92,7 @@ There are several command line arguments, the important ones are listed below
 
 Refer to ``neural_style/neural_style.py`` for other command line arguments. For training new models you might have to tune the values of `--content-weight` and `--style-weight`. The mosaic style model shown above was trained with `--content-weight 1e5` and `--style-weight 1e10`. The remaining 3 models were also trained with similar order of weight parameters with slight variation in the `--style-weight` (`5e10` or `1e11`).
 
+#### Stylize image
 
 `neural_style.py eval` options:
 
@@ -111,8 +114,7 @@ optional arguments:
 
 ```
 
-
-#### Stylize image Template:
+Eval template:
 ```
 python neural_style/neural_style.py eval --content-image </path/to/content/image> --model </path/to/saved/model> --output-image </path/to/output/image> --cuda 0
 ```
