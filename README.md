@@ -3,6 +3,8 @@ This repository contains a pytorch implementation of an algorithm for artistic s
 
 The model uses the method described in [Perceptual Losses for Real-Time Style Transfer and Super-Resolution](https://arxiv.org/abs/1603.08155) along with [Instance Normalization](https://arxiv.org/pdf/1607.08022.pdf). The saved-models for examples shown in the README can be downloaded from [here](https://www.dropbox.com/s/lrvwfehqdcxoza8/saved_models.zip?dl=0).
 
+**Requirement**: Run this project on FloydHub GPU instace. CPU instace does not satisfy the RAM requirement.
+
 <p align="center">
     <img src="images/style-images/mosaic.jpg" height="200px">
     <img src="images/content-images/amber.jpg" height="200px">
@@ -171,7 +173,7 @@ $ floyd init fast-neural-style
 
 ### Try pre-trained model
 
-I've already uploaded for you the pretrained model provided by the Pytorch authors of fast-neural-style. Put the image you want to style in the images/content-images/ path and run:
+I've already uploaded for you the pretrained model provided by the Pytorch authors of fast-neural-style. Put the image you want to style in the `images/content-images/` path and run:
 
 ```bash
 floyd run --gpu --env pytorch-0.2 --data redeipirati/datasets/fast-neural-style-models/1:model "python neural_style/neural_style.py eval --content-image images/content-images/<YOUR_IMAGE>  --model /model/<CHOOSE_YOUR_MODEL>  --output-image /output/<OUTPUT_FILE_NAME> --cuda 1"
@@ -179,6 +181,33 @@ floyd run --gpu --env pytorch-0.2 --data redeipirati/datasets/fast-neural-style-
 
 
 ### Serve model through REST API
+
+FloydHub supports seving mode for demo and testing purpose. Before serving your model through REST API,
+you need to create a `floyd_requirements.txt` and declare the flask requirement in it. If you run a job
+with `--mode serve` flag, FloydHub will run the `app.py` file in your project
+and attach it to a dynamic service endpoint:
+
+
+```bash
+floyd run --gpu --mode serve --env pytorch-0.2--data <REPLACE_WITH_JOB_OUTPUT_NAME>:input
+```
+
+The above command will print out a service endpoint for this job in your terminal console.
+
+The service endpoint will take a couple minutes to become ready. Once it's up, you can interact with the model by sending your image file with a POST request and the service will return stylized image:
+
+```bash
+# Template
+curl -X POST -o <NAME_&_PATH_DOWNLOADED_IMG> -F "file=@<IMAGE_TO_STYLE>" -F "checkpoint=<MODEL_CHECKPOINT>" <SERVICE_ENDPOINT>
+
+# e.g. of a POST req
+curl -X POST -o myfile-udnie.jpg -F "file=@./myfile.jpg" -F "checkpoint=udnie.pth" https://www..floydlabs.com/expose/BhZCFAKom6Z8RptVKskHZW
+```
+
+Any job running in serving mode will stay up until it reaches maximum runtime. So
+once you are done testing, **remember to shutdown the job!**
+
+*Note that this feature is in preview mode and is not production ready yet*
 
 
 ## More resources
