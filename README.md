@@ -127,7 +127,7 @@ python neural_style/neural_style.py eval --content-image </path/to/content/image
 * `--cuda`: set it to 1 for running on GPU, 0 for CPU.
 
 
-## Models
+## Pretrained Models
 
 Models for the examples shown below can be downloaded from [here](https://www.dropbox.com/s/lrvwfehqdcxoza8/saved_models.zip?dl=0) or by running the script ``download_saved_models.sh``.
 
@@ -164,11 +164,29 @@ $ cd fast-neural-style
 $ floyd init fast-neural-style
 ```
 
+You can follow along the progress by using the [logs](http://docs.floydhub.com/commands/logs/) command.
 
 ### Training
 
+After creating, uploading a dataset of images as FloydHub dataset for the training and put the style image in the `images/style-images/` folder, run:
+
+```bash
+floyd run --gpu --env pytorch-0.2 --data <YOUR_USERNAME>/dataset/<DATASET_NAME>/<VERSION>:input "python neural_style/neural_style.py train --dataset /input/<TRAIN_PATH> --style-image images/style-images/<STYLEIMAGE> --save-model-dir /output/<OUTPUT_NAME> --epochs 2 --cuda 1"
+```
+
+Note:
+
+- `--gpu` run your job on a FloydHub GPU instance
+- `--env pytorch-0.2` prepares a pytorch environment for python 3.
+- `--data <YOUR_USERNAME>/dataset/<DATASET_NAME>/<VERSION>` mounts the pytorch mnist dataset in the `/input` folder inside the container
 
 ### Evaluating
+
+Now it's time to evaluate your model on some images:
+
+```bash
+floyd run --gpu --env pytorch-0.2 --data <REPLACE_WITH_JOB_OUTPUT_NAME>:model "python neural_style/neural_style.py eval --content-image images/content-images/<YOUR_IMAGE>  --model /model/<CHOOSE_YOUR_MODEL>  --output-image /output/<OUTPUT_FILE_NAME> --cuda 1"
+```
 
 
 ### Try pre-trained model
@@ -212,6 +230,12 @@ once you are done testing, **remember to shutdown the job!**
 
 ## More resources
 
+- [Convolutional neural networks for artistic style transfer](https://harishnarayanan.org/writing/artistic-style-transfer/)
+- [Artistic Style Transfer with Deep Neural Networks](https://shafeentejani.github.io/2016-12-27/style-transfer/)
+- [Draw me like one of your French girls: Neural artistic style-transfer explained](https://medium.com/@hhl60492/draw-me-like-one-of-your-french-girls-neural-artistic-style-transfer-explained-5996dfc8e26f)
+- [Creating art with deep neural networks](https://blog.paperspace.com/art-with-neural-networks/)
+- [Supercharging Style Transfer - GoogleBlog](https://research.googleblog.com/2016/10/supercharging-style-transfer.html)
+- [How to Generate Art](https://youtu.be/Oex0eWoU7AQ)
 
 ## Contributing
 
