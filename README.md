@@ -159,7 +159,7 @@ Here's the commands to training, evaluating and serving your Fast Neural Transfe
 Before you start, log in on FloydHub with the [floyd login](http://docs.floydhub.com/commands/login/) command, then fork and init the project:
 
 ```bash
-$ git clone https://github.com/ReDeiPirati/fast-neural-style.git
+$ git clone https://github.com/floydhub/fast-neural-style.git
 $ cd fast-neural-style
 $ floyd init fast-neural-style
 ```
