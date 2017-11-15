@@ -150,6 +150,8 @@ Models for the examples shown below can be downloaded from [here](https://www.dr
 
 ## Architecture
 
+*Soon*
+
 ## Run on FloydHub
 
 Here's the commands to training, evaluating and serving your Fast Neural Transfer model on FloydHub.
