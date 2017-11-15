@@ -158,7 +158,7 @@ Here's the commands to training, evaluating and serving your Fast Neural Transfe
 
 ### Project Setup
 
-Before you start, log in on FloydHub with the [floyd login](http://docs.floydhub.com/commands/login/) command, then fork and init the project (make sure you have already [created the project on FloydHub](https://docs.floydhub.com/guides/basics/create_new/)):
+Before you start, log in on FloydHub with the [floyd login](http://docs.floydhub.com/commands/login/) command, then fork and init the project:
 
 ```bash
 $ git clone https://github.com/floydhub/fast-neural-style.git
@@ -209,7 +209,7 @@ and attach it to a dynamic service endpoint:
 
 
 ```bash
-floyd run --gpu --mode serve --env pytorch-0.2--data <REPLACE_WITH_JOB_OUTPUT_NAME>:input
+floyd run --gpu --mode serve --env pytorch-0.2 --data <REPLACE_WITH_JOB_OUTPUT_NAME>:input
 ```
 
 The above command will print out a service endpoint for this job in your terminal console.
